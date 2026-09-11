@@ -1,0 +1,156 @@
+#include <stdio.h>
+#define MAX 100
+
+int list[MAX];
+int n = 0;
+
+/* Insert an element */
+void insert(int pos, int value)
+{
+    int i;
+
+    if (n == MAX)
+    {
+        printf("List is full\n");
+        return;
+    }
+
+    if (pos < 0 || pos > n)
+    {
+        printf("Invalid position\n");
+        return;
+    }
+
+    for (i = n; i > pos; i--)
+    {
+        list[i] = list[i - 1];
+    }
+
+    list[pos] = value;
+    n++;
+
+    printf("Element inserted successfully\n");
+}
+
+/* Delete an element */
+void delete(int pos)
+{
+    int i;
+
+    if (n == 0)
+    {
+        printf("List is empty\n");
+        return;
+    }
+
+    if (pos < 0 || pos >= n)
+    {
+        printf("Invalid position\n");
+        return;
+    }
+
+    for (i = pos; i < n - 1; i++)
+    {
+        list[i] = list[i + 1];
+    }
+
+    n--;
+
+    printf("Element deleted successfully\n");
+}
+
+/* Search an element */
+void search(int value)
+{
+    int i;
+
+    for (i = 0; i < n; i++)
+    {
+        if (list[i] == value)
+        {
+            printf("Element found at position %d\n", i);
+            return;
+        }
+    }
+
+    printf("Element not found\n");
+}
+
+/* Display the list */
+void display()
+{
+    int i;
+
+    if (n == 0)
+    {
+        printf("List is empty\n");
+        return;
+    }
+
+    printf("List elements: ");
+
+    for (i = 0; i < n; i++)
+    {
+        printf("%d ", list[i]);
+    }
+
+    printf("\n");
+}
+
+/* Main function */
+int main()
+{
+    int choice, pos, value;
+
+    while (1)
+    {
+        printf("\n--- LIST ADT ---\n");
+        printf("1. Insert\n");
+        printf("2. Delete\n");
+        printf("3. Search\n");
+        printf("4. Display\n");
+        printf("5. Exit\n");
+
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+
+        switch (choice)
+        {
+            case 1:
+                printf("Enter position: ");
+                scanf("%d", &pos);
+
+                printf("Enter value: ");
+                scanf("%d", &value);
+
+                insert(pos, value);
+                break;
+
+            case 2:
+                printf("Enter position: ");
+                scanf("%d", &pos);
+
+                delete(pos);
+                break;
+
+            case 3:
+                printf("Enter value to search: ");
+                scanf("%d", &value);
+
+                search(value);
+                break;
+
+            case 4:
+                display();
+                break;
+
+            case 5:
+                return 0;
+
+            default:
+                printf("Invalid choice\n");
+        }
+    }
+
+    return 0;
+}
