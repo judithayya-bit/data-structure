@@ -1,0 +1,110 @@
+
+
+```
+#include <stdio.h>
+#include <stdlib.h>
+
+#define SIZE 10
+
+struct Node
+{
+    int data;
+    struct Node *next;
+};
+
+struct Node *table[SIZE];
+
+int hash(int key)
+{
+    return key % SIZE;
+}
+
+void insert(int key)
+{
+    int index = hash(key);
+
+    struct Node *newNode;
+    newNode = (struct Node *)malloc(sizeof(struct Node));
+
+    newNode->data = key;
+    newNode->next = table[index];
+    table[index] = newNode;
+}
+
+void display()
+{
+    int i;
+    struct Node *temp;
+
+    printf("\nHash Table:\n");
+
+    for(i = 0; i < SIZE; i++)
+    {
+        printf("%d: ", i);
+
+        temp = table[i];
+
+        while(temp != NULL)
+        {
+            printf("%d -> ", temp->data);
+            temp = temp->next;
+        }
+
+        printf("NULL\n");
+    }
+}
+
+int main()
+{
+    int n, key, i;
+
+    for(i = 0; i < SIZE; i++)
+        table[i] = NULL;
+
+    printf("Enter number of elements: ");
+    scanf("%d", &n);
+
+    printf("Enter elements:\n");
+
+    for(i = 0; i < n; i++)
+    {
+        scanf("%d", &key);
+        insert(key);
+    }
+
+    display();
+
+    return 0;
+}
+```
+
+### Example
+
+Input:
+
+```
+5
+10 20 15 25 35
+```
+
+Output:
+
+```
+Hash Table:
+0: 20 -> 10 -> NULL
+1: NULL
+2: NULL
+3: NULL
+4: NULL
+5: 35 -> 25 -> 15 -> NULL
+6: NULL
+7: NULL
+8: NULL
+9: NULL
+```
+
+Here, the hash function is:
+
+```
+h(key) = key % 10
+```
